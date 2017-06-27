@@ -7,6 +7,7 @@ package model;
 public class Assignment {
 
     int Course_Id;
+    int Assignment_Id;
     String Delivery_Type;
     Boolean Completed;
     String Weekday;
@@ -30,6 +31,9 @@ public class Assignment {
     public void setCourse_Id(int course_Id) {
         Course_Id = course_Id;
     }
+    public void setAssignment_Id(int assignment_Id) {
+        Assignment_Id = assignment_Id;
+    }
     public void setDelivery_Type(String delivery_Type) {
         Delivery_Type = delivery_Type;
     }
@@ -50,6 +54,9 @@ public class Assignment {
     public int getCourse_Id() {
         return Course_Id;
     }
+    public int getAssignment_Id() {
+        return Assignment_Id;
+    }
     public String getDelivery_Type() {
         return Delivery_Type;
     }
@@ -65,4 +72,5 @@ public class Assignment {
     public String getNext_Delivery() {
         return Next_Delivery;
     }
+
 }
