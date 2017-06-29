@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Assignments</string>
+    <string name="course">Courses</string>
+    <string name="createCourse">Create new Course</string>
 </resources>

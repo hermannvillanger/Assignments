@@ -9,18 +9,22 @@ public class Assignment {
     int Course_Id;
     int Assignment_Id;
     String Delivery_Type;
-    Boolean Completed;
+    //0 for false, not completed, 1 for true
+    int Completed;
     String Weekday;
+    //Time of day for delivery, format HH:MM
     String Delivery_Time;
+    //Days until next delivery, ie 7 for 1 week
     String Next_Delivery;
 
     //Constructors
     public Assignment(){
     }
-    public Assignment(int Course_Id, String Delivery_Type, Boolean Completed, String Weekday,
+    public Assignment(int Course_Id,int Assignment_Id, String Delivery_Type, int Completed, String Weekday,
                       String Delivery_Time, String Next_Delivery){
 
         this.Course_Id = Course_Id;
+        this.Assignment_Id = Assignment_Id;
         this.Delivery_Type = Delivery_Type;
         this.Completed = Completed;
         this.Weekday = Weekday;
@@ -37,7 +41,7 @@ public class Assignment {
     public void setDelivery_Type(String delivery_Type) {
         Delivery_Type = delivery_Type;
     }
-    public void setCompleted(Boolean completed) {
+    public void setCompleted(int completed) {
         Completed = completed;
     }
     public void setWeekday(String weekday) {
@@ -60,7 +64,7 @@ public class Assignment {
     public String getDelivery_Type() {
         return Delivery_Type;
     }
-    public Boolean getCompleted() {
+    public int getCompleted() {
         return Completed;
     }
     public String getWeekday() {

@@ -191,7 +191,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         asg.setCourse_Id(c.getInt(c.getColumnIndex(C_ID)));
         asg.setAssignment_Id(c.getInt(c.getColumnIndex(A_ID)));
         asg.setDelivery_Type(c.getString(c.getColumnIndex(A_TYPE)));
-        asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)) > 0);
+        asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)));
         asg.setWeekday(c.getString(c.getColumnIndex(A_WEEKDAY)));
         asg.setDelivery_Time(c.getString(c.getColumnIndex(A_TIME)));
         asg.setNext_Delivery(c.getString(c.getColumnIndex(A_NEXT)));
@@ -215,7 +215,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 asg.setCourse_Id(c.getInt(c.getColumnIndex(C_ID)));
                 asg.setAssignment_Id(c.getInt(c.getColumnIndex(A_ID)));
                 asg.setDelivery_Type(c.getString(c.getColumnIndex(A_TYPE)));
-                asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)) > 0);
+                asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)));
                 asg.setWeekday(c.getString(c.getColumnIndex(A_WEEKDAY)));
                 asg.setDelivery_Time(c.getString(c.getColumnIndex(A_TIME)));
                 asg.setNext_Delivery(c.getString(c.getColumnIndex(A_NEXT)));
@@ -244,7 +244,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 asg.setCourse_Id(c.getInt(c.getColumnIndex(C_ID)));
                 asg.setAssignment_Id(c.getInt(c.getColumnIndex(A_ID)));
                 asg.setDelivery_Type(c.getString(c.getColumnIndex(A_TYPE)));
-                asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)) > 0);
+                asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)));
                 asg.setWeekday(c.getString(c.getColumnIndex(A_WEEKDAY)));
                 asg.setDelivery_Time(c.getString(c.getColumnIndex(A_TIME)));
                 asg.setNext_Delivery(c.getString(c.getColumnIndex(A_NEXT)));
