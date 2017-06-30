@@ -6,8 +6,8 @@ package model;
 
 public class Assignment {
 
-    int Course_Id;
-    int Assignment_Id;
+    Integer Course_Id;
+    Integer Assignment_Id;
     String Delivery_Type;
     //0 for false, not completed, 1 for true
     int Completed;
@@ -20,7 +20,7 @@ public class Assignment {
     //Constructors
     public Assignment(){
     }
-    public Assignment(int Course_Id,int Assignment_Id, String Delivery_Type, int Completed, String Weekday,
+    public Assignment(Integer Course_Id,Integer Assignment_Id, String Delivery_Type, int Completed, String Weekday,
                       String Delivery_Time, String Next_Delivery){
 
         this.Course_Id = Course_Id;

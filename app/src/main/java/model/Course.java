@@ -6,14 +6,14 @@ package model;
 
 public class Course {
 
-    int Course_Id;
+    Integer Course_Id;
     String Name;
     String Course_Code;
 
     //Constructors
     public Course(){
     }
-    public Course(int Course_Id, String Name, String Course_Code){
+    public Course(Integer Course_Id, String Name, String Course_Code){
         this.Course_Id = Course_Id;
         this.Name = Name;
         this.Course_Code = Course_Code;

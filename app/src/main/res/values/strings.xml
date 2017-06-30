@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">Assignments</string>
+
     <string name="course">Courses</string>
-    <string name="createCourse">Create new Course</string>
+    <string name="addCourse">Add New Course</string>
+
+    <string name="courseName">Course Name</string>
+    <string name="courseCode">Course Code</string>
+
+
+    <string name="assigment">Assignment</string>
+    <string name="addAssignment">Add New Assignment</string>
+
+    <string name="weekday">Weekday of Delivery</string>
+    <string name="deliveryTime">Time of Delivery</string>
+    <string name="deliveryType">Type of Delivery</string>
+    <string name="nextDelivery">Days Until Next Delivery</string>
+
+    <string name="save">Save</string>
+
 </resources>
