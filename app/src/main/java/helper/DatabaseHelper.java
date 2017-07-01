@@ -3,7 +3,6 @@ package helper;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -52,52 +51,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Create course
     private static final String CREATE_TABLE_COURSE =
             "CREATE TABLE " + TABLE_COURSE +
-            "(" + C_ID + " INTEGER AUTOINCREMENT NOT NULL, " +
+            "(" + C_ID + " INTEGER AUTOINCREMENT, " +
             C_NAME + " TEXT, " +
             C_CODE + " TEXT, " +
-            "PRIMARY KEY( " + C_ID + " ))";
+            "PRIMARY KEY( " + C_ID + " ));";
 
     //Create assignment
     private static final String CREATE_TABLE_ASSIGNMENT =
             "CREATE TABLE " + TABLE_ASSIGNMENT +
             "(" + C_ID + " INTEGER NOT NULL, " +
-            A_ID + " INTEGER AUTOINCREMENT NOT NULL, " +
+            A_ID + " INTEGER AUTOINCREMENT, " +
             A_TYPE + " TEXT, " +
             A_COMPLETED + " INTEGER, " +
             A_WEEKDAY + " TEXT, " +
             A_TIME + " TEXT, " +
             A_NEXT + " TEXT, " +
-            "PRIMARY KEY( " + C_ID + "," + A_ID + " ))";
+            "PRIMARY KEY( " + A_ID + " ));";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 //---------------------'Course' table methods---------------------//
     //Create course
-    public long createCourse(Course course){
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean createCourse(Course course, SQLiteDatabase db){
+        //Writeable
         ContentValues values = new ContentValues();
         values.put(C_ID, course.getCId());
         values.put(C_CODE, course.getCCode());
         values.put(C_NAME, course.getName());
         //Insert row
-        long course_id = db.insert(TABLE_COURSE, null, values);
-
-        return course_id;
+        return changeSuccessful(db.insert(TABLE_COURSE, null, values));
     }
     //Get one course
-    public Course getCourse(long course_id){
-        SQLiteDatabase db = this.getReadableDatabase();
+    public Course getCourse(long course_id, SQLiteDatabase db){
+        //Readable
 
-        String selectQuery = "SELECT * FROM " + TABLE_COURSE + "WHERE " +
-                C_ID + " = " + course_id;
+        String selectQuery = "SELECT * FROM " + TABLE_COURSE + "WHERE " + C_ID + " = " + course_id;
         Log.e(LOG, selectQuery);
         Cursor c = db.rawQuery(selectQuery, null);
 
         if(c != null){
             c.moveToFirst();
         }
-
         Course cr = new Course();
         cr.setCId(c.getInt(c.getColumnIndex(C_ID)));
         cr.setCCode(c.getString(c.getColumnIndex(C_CODE)));
@@ -106,12 +101,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cr;
     }
     //Get all courses
-    public List<Course> getAllCourses(){
+    public List<Course> getAllCourses(SQLiteDatabase db){
+        //Readable
         List<Course> courses = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_COURSE;
         Log.e(LOG, selectQuery);
 
-        SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery,null);
 
         //Looping through all rows and adding to list
@@ -130,37 +125,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return courses;
     }
     //Update course
-    public int updateCourse(Course course){
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean updateCourse(Course course, SQLiteDatabase db){
+        //Writeable
 
         ContentValues values = new ContentValues();
         values.put(C_CODE, course.getCCode());
         values.put(C_NAME, course.getName());
         //updating row
 
-        return db.update(TABLE_COURSE, values, C_ID + " = ?",
-                new String[] {String.valueOf(course.getCId())});
+        return changeSuccessful(db.update(TABLE_COURSE, values, C_ID + " = ?",
+                new String[] {String.valueOf(course.getCId())}));
     }
-    //Delete course, deletes all assignments to a course
-    public void deleteCourse(Course course){
-        SQLiteDatabase db = this.getWritableDatabase();
-
+    //Delete course, also deletes all assignments to a course
+    public boolean deleteCourse(Course course, SQLiteDatabase db){
+        //Writeable
+        SQLiteDatabase dbr = this.getReadableDatabase();
         //Get all Assignments
-        List<Assignment> assignments = getAllAssignmentsByCourse(course.getCId());
+        List<Assignment> assignments = getAllAssignmentsByCourse(course.getCId(), dbr);
 
         //Delete all assignments
         for(Assignment assignment : assignments){
-            deleteAssignment(assignment.getCourse_Id(), assignment.getAssignment_Id());
+            deleteAssignment(assignment.getAssignment_Id(), db);
         }
         //Delete course
-        db.delete(TABLE_COURSE, C_ID + " = ?",
-                new String[] {String.valueOf(course.getCId())});
+        return changeSuccessful(db.delete(TABLE_COURSE, C_ID + " = ?",
+                new String[] {String.valueOf(course.getCId())}));
     }
 
     //---------------------'Assignment' table methods---------------------//
     //Create assignment
-    public long createAssignment(Assignment assignment){
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean createAssignment(Assignment assignment, SQLiteDatabase db){
+        //Writeable
         ContentValues values = new ContentValues();
 
         values.put(C_ID, assignment.getCourse_Id());
@@ -172,16 +167,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(A_NEXT, assignment.getNext_Delivery());
 
         //Insert row
-        long assignment_id = db.insert(TABLE_ASSIGNMENT, null, values);
-
-        return assignment_id;
+        return changeSuccessful(db.insert(TABLE_ASSIGNMENT, null, values));
     }
     //Get one assignment
-    public Assignment getAssignment(long course_id, long assignment_id){
-        SQLiteDatabase db = this.getReadableDatabase();
+    public Assignment getAssignment(long assignment_id, SQLiteDatabase db){
+        //Readable
 
         String selectQuery = "SELECT * FROM " + TABLE_ASSIGNMENT + "WHERE " +
-                C_ID + " = " + course_id + " AND " + A_ID + " = " + assignment_id ;
+                A_ID + " = " + assignment_id ;
         Log.e(LOG, selectQuery);
         Cursor c = db.rawQuery(selectQuery, null);
 
@@ -193,7 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         asg.setCourse_Id(c.getInt(c.getColumnIndex(C_ID)));
         asg.setAssignment_Id(c.getInt(c.getColumnIndex(A_ID)));
         asg.setDelivery_Type(c.getString(c.getColumnIndex(A_TYPE)));
-        asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)) > 0);
+        asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)));
         asg.setWeekday(c.getString(c.getColumnIndex(A_WEEKDAY)));
         asg.setDelivery_Time(c.getString(c.getColumnIndex(A_TIME)));
         asg.setNext_Delivery(c.getString(c.getColumnIndex(A_NEXT)));
@@ -201,12 +194,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return asg;
     }
     //Get all assignment
-    public List<Assignment> getAllAssignments(){
+    public List<Assignment> getAllAssignments(SQLiteDatabase db){
+        //Readable
         List<Assignment> assignments = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_ASSIGNMENT;
         Log.e(LOG, selectQuery);
 
-        SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery,null);
 
         //Looping through all rows and adding to list
@@ -217,7 +210,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 asg.setCourse_Id(c.getInt(c.getColumnIndex(C_ID)));
                 asg.setAssignment_Id(c.getInt(c.getColumnIndex(A_ID)));
                 asg.setDelivery_Type(c.getString(c.getColumnIndex(A_TYPE)));
-                asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)) > 0);
+                asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)));
                 asg.setWeekday(c.getString(c.getColumnIndex(A_WEEKDAY)));
                 asg.setDelivery_Time(c.getString(c.getColumnIndex(A_TIME)));
                 asg.setNext_Delivery(c.getString(c.getColumnIndex(A_NEXT)));
@@ -229,13 +222,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return assignments;
     }
     //Get all assignments by course id
-    public List<Assignment> getAllAssignmentsByCourse(long course_id){
+    public List<Assignment> getAllAssignmentsByCourse(long course_id, SQLiteDatabase db){
+        //Readable
         List<Assignment> assignments = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_ASSIGNMENT + " WHERE " +
                 C_ID + " = " + course_id;
 
         Log.e(LOG, selectQuery);
-        SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery,null);
 
         // looping through all rows and adding to list
@@ -246,7 +239,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 asg.setCourse_Id(c.getInt(c.getColumnIndex(C_ID)));
                 asg.setAssignment_Id(c.getInt(c.getColumnIndex(A_ID)));
                 asg.setDelivery_Type(c.getString(c.getColumnIndex(A_TYPE)));
-                asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)) > 0);
+                asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)));
                 asg.setWeekday(c.getString(c.getColumnIndex(A_WEEKDAY)));
                 asg.setDelivery_Time(c.getString(c.getColumnIndex(A_TIME)));
                 asg.setNext_Delivery(c.getString(c.getColumnIndex(A_NEXT)));
@@ -258,8 +251,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return assignments;
     }
     //Update assignment
-    public int updateAssignment(Assignment assignment){
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean updateAssignment(Assignment assignment, SQLiteDatabase db){
+        //Writeable
         ContentValues values = new ContentValues();
 
         values.put(A_TYPE, assignment.getDelivery_Type());
@@ -268,22 +261,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(A_TIME, assignment.getDelivery_Time());
         values.put(A_NEXT, assignment.getNext_Delivery());
         //updating row
-
-        return db.update(TABLE_ASSIGNMENT, values, C_ID + " = ? AND " + A_ID + " = ?",
-                new String[] {String.valueOf(assignment.getCourse_Id()),
-                        String.valueOf(assignment.getAssignment_Id())});
+        return changeSuccessful(db.update(TABLE_ASSIGNMENT, values, A_ID + " = ?",
+                new String[] {String.valueOf(assignment.getAssignment_Id())}));
     }
     //Delete assignment
-    public void deleteAssignment(long course_id, long assignment_id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_ASSIGNMENT, C_ID + " = ? AND " + A_ID + " = ?",
-                new String[] {String.valueOf(course_id), String.valueOf(assignment_id)});
+    public boolean deleteAssignment(long assignment_id, SQLiteDatabase db){
+        //Writeable
+        return changeSuccessful(db.delete(TABLE_ASSIGNMENT, A_ID + " = ?",
+                new String[] {String.valueOf(assignment_id)}));
     }
 
+    private boolean changeSuccessful(long insert){
+        if(insert == -1){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 
     //Close database connection
-    public void closeDB(){
-        SQLiteDatabase db = this.getReadableDatabase();
+    public void closeDB(SQLiteDatabase db){
         if(db != null && db.isOpen()){
             db.close();
         }
