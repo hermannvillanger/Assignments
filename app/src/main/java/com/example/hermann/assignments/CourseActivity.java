@@ -29,7 +29,7 @@ public class CourseActivity extends Activity{
         addAssignment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent direct = new Intent(CourseActivity.this, AddCourseActivity.class);
+                Intent direct = new Intent(CourseActivity.this, AddAssignmentActivity.class);
                 startActivity(direct);
             }
         });

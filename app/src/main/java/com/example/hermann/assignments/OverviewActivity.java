@@ -19,7 +19,6 @@ public class OverviewActivity extends Activity{
     Context context = this;
     DatabaseHelper databaseHelper;
     SQLiteDatabase sqLiteDatabase;
-    Button toCourse;
     Button addCourse;
 
     protected void onCreate(Bundle savedInstanceState){
@@ -27,7 +26,7 @@ public class OverviewActivity extends Activity{
         setContentView(R.layout.courses);
 
 
-        toCourse = (Button) findViewById(R.id.toCourse);
+        Button toCourse = (Button) findViewById(R.id.toCourse);
         toCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
