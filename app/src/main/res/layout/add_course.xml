@@ -12,28 +12,29 @@
         android:id="@+id/course_name"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="@string/courseName"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_marginTop="100dp"
+        android:ems="10"
+        android:hint="@string/courseName"
+        android:inputType="text"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/course_code"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="-8dp"
         android:layout_marginTop="20dp"
         android:ems="10"
+        android:hint="@string/courseCode"
         android:inputType="text"
-        android:text="@string/courseCode"
+        app:layout_constraintLeft_toLeftOf="@+id/course_name"
         app:layout_constraintTop_toBottomOf="@+id/course_name"
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginLeft="-8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/course_name" />
+        tools:layout_constraintTop_creator="1" />
 
     <Button
         android:id="@+id/saveCourse"
