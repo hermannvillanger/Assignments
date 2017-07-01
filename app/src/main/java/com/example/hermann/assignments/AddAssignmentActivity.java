@@ -15,7 +15,7 @@ import model.Assignment;
  * Created by Hermann on 30.06.2017.
  */
 
-public class NewAssignmentActivity extends Activity {
+public class AddAssignmentActivity extends Activity {
 
     EditText Weekday, DeliveryTime, DeliveryType, NextDelivery;
     Context context = this;
@@ -24,12 +24,12 @@ public class NewAssignmentActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.add_assignment);
 
-        setContentView(R.layout.addassignment);
-        Weekday = (EditText) findViewById(R.id.weekday);
-        DeliveryTime = (EditText) findViewById(R.id.delivery_time);
-        DeliveryType = (EditText) findViewById(R.id.delivery_type);
-        NextDelivery = (EditText) findViewById(R.id.next_delivery);
+        Weekday = findViewById(R.id.weekday);
+        DeliveryTime = findViewById(R.id.delivery_time);
+        DeliveryType = findViewById(R.id.delivery_type);
+        NextDelivery = findViewById(R.id.next_delivery);
 
     }
 

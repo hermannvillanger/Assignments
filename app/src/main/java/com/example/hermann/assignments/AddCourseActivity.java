@@ -15,7 +15,7 @@ import model.Course;
  * Created by Hermann on 30.06.2017.
  */
 
-public class NewCourseActivity extends Activity {
+public class AddCourseActivity extends Activity {
     EditText CourseName, CourseCode;
     Context context = this;
     DatabaseHelper databaseHelper;
@@ -24,9 +24,9 @@ public class NewCourseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.addcourse);
-        CourseName = (EditText) findViewById(R.id.course_name);
-        CourseCode = (EditText) findViewById(R.id.course_code);
+        setContentView(R.layout.add_course);
+        CourseName = findViewById(R.id.course_name);
+        CourseCode = findViewById(R.id.course_code);
 
     }
 
