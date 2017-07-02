@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class AddAssignmentActivity extends Activity {
     Context context = this;
     DatabaseHelper databaseHelper;
     SQLiteDatabase sqLiteDatabase;
+    Button saveAssignment;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -30,6 +32,14 @@ public class AddAssignmentActivity extends Activity {
         DeliveryTime = findViewById(R.id.delivery_time);
         DeliveryType = findViewById(R.id.delivery_type);
         NextDelivery = findViewById(R.id.next_delivery);
+
+        saveAssignment = (Button) findViewById(R.id.saveAssignment);
+        saveAssignment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addAssignment(view);
+            }
+        });
 
     }
 

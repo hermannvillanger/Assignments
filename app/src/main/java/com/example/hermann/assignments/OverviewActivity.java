@@ -20,13 +20,14 @@ public class OverviewActivity extends Activity{
     DatabaseHelper databaseHelper;
     SQLiteDatabase sqLiteDatabase;
     Button addCourse;
+    Button toCourse;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.courses);
 
 
-        Button toCourse = (Button) findViewById(R.id.toCourse);
+        toCourse = (Button) findViewById(R.id.toCourse);
         toCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

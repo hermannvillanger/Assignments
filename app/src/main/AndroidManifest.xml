@@ -19,33 +19,16 @@
         </activity>
 
         <activity android:name=".OverviewActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
-
-            </intent-filter>
         </activity>
 
         <activity android:name=".CourseActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
-
-            </intent-filter>
         </activity>
 
         <activity android:name=".AddCourseActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
-
-            </intent-filter>
         </activity>
 
         <activity android:name=".AddAssignmentActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
-
-            </intent-filter>
         </activity>
-
 
     </application>
 

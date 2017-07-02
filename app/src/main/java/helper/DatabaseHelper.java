@@ -51,22 +51,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Create course
     private static final String CREATE_TABLE_COURSE =
             "CREATE TABLE " + TABLE_COURSE +
-            "(" + C_ID + " INTEGER AUTOINCREMENT, " +
+            "(" + C_ID + " INTEGER PRIMARY KEY, " +
             C_NAME + " TEXT, " +
-            C_CODE + " TEXT, " +
-            "PRIMARY KEY( " + C_ID + " ));";
+            C_CODE + " TEXT);";
 
     //Create assignment
     private static final String CREATE_TABLE_ASSIGNMENT =
             "CREATE TABLE " + TABLE_ASSIGNMENT +
             "(" + C_ID + " INTEGER NOT NULL, " +
-            A_ID + " INTEGER AUTOINCREMENT, " +
+            A_ID + " INTEGER PRIMARY KEY, " +
             A_TYPE + " TEXT, " +
             A_COMPLETED + " INTEGER, " +
             A_WEEKDAY + " TEXT, " +
             A_TIME + " TEXT, " +
-            A_NEXT + " TEXT, " +
-            "PRIMARY KEY( " + A_ID + " ));";
+            A_NEXT + " TEXT);";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
