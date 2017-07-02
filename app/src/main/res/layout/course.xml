@@ -23,4 +23,24 @@
         tools:layout_constraintTop_creator="1"
         android:layout_marginTop="16dp"
         app:layout_constraintHorizontal_bias="0.0" />
+
+    <TextView
+        android:id="@+id/courseName"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/addAssignment"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/courseCode"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="@+id/courseName"
+        app:layout_constraintTop_toBottomOf="@+id/courseName" />
 </android.support.constraint.ConstraintLayout>
