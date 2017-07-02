@@ -2,6 +2,7 @@ package com.example.hermann.assignments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +20,7 @@ import model.Assignment;
 public class AddAssignmentActivity extends Activity {
 
     EditText Weekday, DeliveryTime, DeliveryType, NextDelivery;
-    Context context = this;
+    Context context;
     DatabaseHelper databaseHelper;
     SQLiteDatabase sqLiteDatabase;
     Button saveAssignment;
@@ -27,6 +28,7 @@ public class AddAssignmentActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_assignment);
+        context = getBaseContext();
 
         Weekday = findViewById(R.id.weekday);
         DeliveryTime = findViewById(R.id.delivery_time);
@@ -38,6 +40,8 @@ public class AddAssignmentActivity extends Activity {
             @Override
             public void onClick(View view) {
                 addAssignment(view);
+                Intent direct = new Intent(AddAssignmentActivity.this, CourseActivity.class);
+                startActivity(direct);
             }
         });
 

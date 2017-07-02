@@ -16,7 +16,7 @@ import helper.DatabaseHelper;
 
 public class OverviewActivity extends Activity{
 
-    Context context = this;
+    Context context;
     DatabaseHelper databaseHelper;
     SQLiteDatabase sqLiteDatabase;
     Button addCourse;
@@ -25,6 +25,10 @@ public class OverviewActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.courses);
+        context = getBaseContext();
+
+        databaseHelper = new DatabaseHelper(context);
+        sqLiteDatabase = databaseHelper.getReadableDatabase();
 
 
         toCourse = (Button) findViewById(R.id.toCourse);

@@ -27,8 +27,8 @@ public class AddCourseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_course);
+        context = getBaseContext();
 
-        context = this;
         CourseName = findViewById(R.id.course_name);
         CourseCode = findViewById(R.id.course_code);
 
@@ -41,7 +41,6 @@ public class AddCourseActivity extends Activity {
                 startActivity(direct);
             }
         });
-
     }
 
     public void addCourse(View view){
@@ -58,12 +57,9 @@ public class AddCourseActivity extends Activity {
         else{
             Toast("Something went wrong");
         }
-
         databaseHelper.close();
-
-//TODO Lagring av course til databasen
-
     }
+
     private void Toast(String message){
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
         toast.show();
