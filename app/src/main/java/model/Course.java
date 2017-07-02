@@ -20,7 +20,7 @@ public class Course {
     }
 
     //Setters
-    public void setCId(int Course_Id){
+    public void setCId(Integer Course_Id){
         this.Course_Id = Course_Id;
     }
     public void setName(String Name){
@@ -30,7 +30,7 @@ public class Course {
         this.Course_Code = Course_Code;
     }
     //Getters
-    public int getCId(){
+    public Integer getCId(){
         return this.Course_Id;
     }
     public String getName(){

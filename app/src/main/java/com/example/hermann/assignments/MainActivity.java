@@ -14,7 +14,7 @@ import helper.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
-    Context context = this;
+    Context context;
     DatabaseHelper databaseHelper;
     SQLiteDatabase sqLiteDatabase;
     Button toCourses;
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        context = getBaseContext();
 
         toCourses = (Button) findViewById(R.id.toCourses);
         toCourses.setOnClickListener(new View.OnClickListener() {

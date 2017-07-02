@@ -16,17 +16,22 @@ import helper.DatabaseHelper;
 
 public class OverviewActivity extends Activity{
 
-    Context context = this;
+    Context context;
     DatabaseHelper databaseHelper;
     SQLiteDatabase sqLiteDatabase;
     Button addCourse;
+    Button toCourse;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.courses);
+        context = getBaseContext();
+
+        databaseHelper = new DatabaseHelper(context);
+        sqLiteDatabase = databaseHelper.getReadableDatabase();
 
 
-        Button toCourse = (Button) findViewById(R.id.toCourse);
+        toCourse = (Button) findViewById(R.id.toCourse);
         toCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
