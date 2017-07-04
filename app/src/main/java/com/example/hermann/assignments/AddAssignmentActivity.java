@@ -24,11 +24,14 @@ public class AddAssignmentActivity extends Activity {
     DatabaseHelper databaseHelper;
     SQLiteDatabase sqLiteDatabase;
     Button saveAssignment;
+    Integer courseId;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_assignment);
         context = getBaseContext();
+        Intent intent = getIntent();
+        courseId = intent.getIntExtra("courseId",0);
 
         Weekday = findViewById(R.id.weekday);
         DeliveryTime = findViewById(R.id.delivery_time);
@@ -52,14 +55,24 @@ public class AddAssignmentActivity extends Activity {
         String deliveryTime = DeliveryTime.getText().toString();
         String deliveryType = DeliveryType.getText().toString();
         String nextDelivery = NextDelivery.getText().toString();
-        Assignment assignment = new Assignment(null, null, deliveryType, 0, weekday, deliveryTime, nextDelivery);
-//TODO må hente course id fra course assignment er knyttet til. 0 pga false ie ikke levert. Første nullverdi
+        Assignment assignment = new Assignment(courseId, null, deliveryType, 0, weekday, deliveryTime, nextDelivery);
 
         databaseHelper = new DatabaseHelper(context);
         sqLiteDatabase = databaseHelper.getWritableDatabase();
 
-        databaseHelper.createAssignment(assignment, sqLiteDatabase);
-        Toast.makeText(getBaseContext(),"Course Saved", Toast.LENGTH_SHORT).show();
+        boolean saved = databaseHelper.createAssignment(assignment, sqLiteDatabase);
+        if(saved){
+            Toast("Assignment saved");
+        }
+        else{
+            Toast("Something went wrong");
+        }
+
         databaseHelper.close();
     }
+
+    private void Toast(String message){
+        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+    }
+
 }
