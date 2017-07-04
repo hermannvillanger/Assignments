@@ -81,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     //Get one course
     public Course getCourse(long course_id, SQLiteDatabase db){
-        String selectQuery = "SELECT * FROM " + TABLE_COURSE + "WHERE " + C_ID + " = " + course_id;
+        String selectQuery = "SELECT * FROM " + TABLE_COURSE + " WHERE " + C_ID + " = " + course_id;
         Log.e(LOG, selectQuery);
         Cursor c = db.rawQuery(selectQuery, null);
 
@@ -161,7 +161,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     //Get one assignment
     public Assignment getAssignment(long assignment_id, SQLiteDatabase db){
-        String selectQuery = "SELECT * FROM " + TABLE_ASSIGNMENT + "WHERE " +
+        String selectQuery = "SELECT * FROM " + TABLE_ASSIGNMENT + " WHERE " +
                 A_ID + " = " + assignment_id ;
         Log.e(LOG, selectQuery);
         Cursor c = db.rawQuery(selectQuery, null);
@@ -259,7 +259,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private boolean changeSuccessful(long insert){
-        return(insert == -1);
+        return(insert == 1);
     }
 
     //Close database connection

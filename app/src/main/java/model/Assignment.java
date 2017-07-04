@@ -6,16 +6,16 @@ package model;
 
 public class Assignment {
 
-    Integer Course_Id;
-    Integer Assignment_Id;
-    String Delivery_Type;
+    private Integer Course_Id;
+    private Integer Assignment_Id;
+    private String Delivery_Type;
     //0 for false, not completed, 1 for true
-    Integer Completed;
-    String Weekday;
+    private Integer Completed;
+    private String Weekday;
     //Time of day for delivery, format HH:MM
-    String Delivery_Time;
+    private String Delivery_Time;
     //Days until next delivery, ie 7 for 1 week
-    String Next_Delivery;
+    private String Next_Delivery;
 
     //Constructors
     public Assignment(){

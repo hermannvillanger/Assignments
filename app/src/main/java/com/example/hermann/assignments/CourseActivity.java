@@ -52,6 +52,7 @@ public class CourseActivity extends Activity{
         courseName.setText(course.getName());
         courseCode.setText(course.getCCode());
     }
+    //TODO delete course button
 
     @Override
     protected void onDestroy() {

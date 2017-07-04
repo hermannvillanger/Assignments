@@ -6,9 +6,9 @@ package model;
 
 public class Course {
 
-    Integer Course_Id;
-    String Name;
-    String Course_Code;
+    private Integer Course_Id;
+    private String Name;
+    private String Course_Code;
 
     //Constructors
     public Course(){

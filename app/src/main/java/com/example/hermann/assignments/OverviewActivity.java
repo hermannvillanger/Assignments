@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import java.util.List;
 
@@ -46,19 +48,47 @@ public class OverviewActivity extends Activity{
             }
         });
 
-        //TODO Knapp for her Course, som sender courseId videre
-        toCourse = (Button) findViewById(R.id.toCourse);
-        toCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent direct = new Intent(OverviewActivity.this, CourseActivity.class);
-                direct.putExtra("courseId", courseId);
-                startActivity(direct);
-            }
-        });
-
+        createCourseButtons(courseList);
 
         sqLiteDatabase.close();
+    }
+
+    private void createCourseButtons(final List<Course> courseList) {
+        TableLayout table = (TableLayout) findViewById(R.id.course_table);
+
+        for(int i = 0; i < courseList.size(); i++){
+            TableRow tablerow = new TableRow(context);
+            tablerow.setLayoutParams(new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT,
+                    TableLayout.LayoutParams.MATCH_PARENT,
+                    1.0f));
+            //Tablerows fyller tilgjengelig plass
+            table.addView(tablerow);
+
+            Button button = new Button(context);
+
+            button.setLayoutParams(new TableRow.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    1.0f));
+            //Buttons fyller tilgjengelig plass
+            button.setText(courseList.get(i).getName());
+            final int index = i;
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent direct = new Intent(OverviewActivity.this, CourseActivity.class);
+                    direct.putExtra("courseId", courseList.get(index).getCId());
+                    startActivity(direct);
+                }
+            });
+
+            tablerow.addView(button);
+
+            //TODO: Legge inn nøkkel logikk her.
+            //TODO: Ide: Legg redirect knapp før for-loopen
+
+        }
     }
 
     @Override
