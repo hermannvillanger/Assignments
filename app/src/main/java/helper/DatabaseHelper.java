@@ -262,12 +262,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return(insert == 1);
     }
 
-    //Close database connection
-    public void closeDB(SQLiteDatabase db){
-        if(db != null && db.isOpen()){
-            db.close();
-        }
-    }
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_COURSE);
