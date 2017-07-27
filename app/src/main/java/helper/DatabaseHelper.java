@@ -84,15 +84,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String selectQuery = "SELECT * FROM " + TABLE_COURSE + " WHERE " + C_ID + " = " + course_id;
         Log.e(LOG, selectQuery);
         Cursor c = db.rawQuery(selectQuery, null);
+        Course cr = null;
+        if(c.moveToFirst()){
+            cr = new Course();
 
-        if(c != null){
-            c.moveToFirst();
+            cr.setCId(c.getInt(c.getColumnIndex(C_ID)));
+            cr.setCCode(c.getString(c.getColumnIndex(C_CODE)));
+            cr.setName(c.getString(c.getColumnIndex(C_NAME)));
+
         }
-        Course cr = new Course();
-        cr.setCId(c.getInt(c.getColumnIndex(C_ID)));
-        cr.setCCode(c.getString(c.getColumnIndex(C_CODE)));
-        cr.setName(c.getString(c.getColumnIndex(C_NAME)));
-
         c.close();
         return cr;
     }
@@ -159,28 +159,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Insert row
         return changeSuccessful(db.insert(TABLE_ASSIGNMENT, null, values));
     }
+
+
     //Get one assignment
     public Assignment getAssignment(long assignment_id, SQLiteDatabase db){
         String selectQuery = "SELECT * FROM " + TABLE_ASSIGNMENT + " WHERE " +
                 A_ID + " = " + assignment_id ;
         Log.e(LOG, selectQuery);
         Cursor c = db.rawQuery(selectQuery, null);
+        Assignment asg = null;
 
-        if(c != null){
-            c.moveToFirst();
+        if(c.moveToFirst()){
+            asg = new Assignment();
+
+            asg.setCourse_Id(c.getInt(c.getColumnIndex(C_ID)));
+            asg.setAssignment_Id(c.getInt(c.getColumnIndex(A_ID)));
+            asg.setDelivery_Type(c.getString(c.getColumnIndex(A_TYPE)));
+            asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)));
+            asg.setWeekday(c.getString(c.getColumnIndex(A_WEEKDAY)));
+            asg.setDelivery_Time(c.getString(c.getColumnIndex(A_TIME)));
+            asg.setNext_Delivery(c.getString(c.getColumnIndex(A_NEXT)));
+
         }
-        Assignment asg = new Assignment();
-
-        asg.setCourse_Id(c.getInt(c.getColumnIndex(C_ID)));
-        asg.setAssignment_Id(c.getInt(c.getColumnIndex(A_ID)));
-        asg.setDelivery_Type(c.getString(c.getColumnIndex(A_TYPE)));
-        asg.setCompleted(c.getInt(c.getColumnIndex(A_COMPLETED)));
-        asg.setWeekday(c.getString(c.getColumnIndex(A_WEEKDAY)));
-        asg.setDelivery_Time(c.getString(c.getColumnIndex(A_TIME)));
-        asg.setNext_Delivery(c.getString(c.getColumnIndex(A_NEXT)));
-
         c.close();
-        return asg;
+       return asg;
     }
     //Get all assignment
     public List<Assignment> getAllAssignments(SQLiteDatabase db){
@@ -211,7 +213,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return assignments;
     }
     //Get all assignments by course id
-    private List<Assignment> getAllAssignmentsByCourse(long course_id, SQLiteDatabase db){
+    public List<Assignment> getAllAssignmentsByCourse(long course_id, SQLiteDatabase db){
         List<Assignment> assignments = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_ASSIGNMENT + " WHERE " +
                 C_ID + " = " + course_id;
@@ -259,15 +261,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private boolean changeSuccessful(long insert){
-        return(insert == 1);
+        return(insert != -1);
     }
 
-    //Close database connection
-    public void closeDB(SQLiteDatabase db){
-        if(db != null && db.isOpen()){
-            db.close();
-        }
-    }
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_COURSE);

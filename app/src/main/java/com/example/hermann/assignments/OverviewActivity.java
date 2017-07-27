@@ -27,12 +27,11 @@ public class OverviewActivity extends Activity{
     Button addCourse;
     Button toCourse;
     List<Course> courseList;
-    Integer courseId;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.courses);
-        context = getBaseContext();
+        context = OverviewActivity.this;
 
         databaseHelper = new DatabaseHelper(context);
         sqLiteDatabase = databaseHelper.getReadableDatabase();
@@ -43,35 +42,32 @@ public class OverviewActivity extends Activity{
         addCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sqLiteDatabase.close();
+                databaseHelper.close();
                 Intent direct = new Intent(OverviewActivity.this, AddCourseActivity.class);
                 startActivity(direct);
             }
         });
 
-        createCourseButtons(courseList);
-
-        sqLiteDatabase.close();
+        createCourseButtons();
     }
 
-    private void createCourseButtons(final List<Course> courseList) {
-        TableLayout table = (TableLayout) findViewById(R.id.course_table);
+    private void createCourseButtons() {
+        TableLayout table = (TableLayout) findViewById(R.id.courseTable);
 
         for(int i = 0; i < courseList.size(); i++){
             TableRow tablerow = new TableRow(context);
-            tablerow.setLayoutParams(new TableLayout.LayoutParams(
-                    TableLayout.LayoutParams.MATCH_PARENT,
-                    TableLayout.LayoutParams.MATCH_PARENT,
+            tablerow.setLayoutParams(new TableRow.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT,
                     1.0f));
-            //Tablerows fyller tilgjengelig plass
             table.addView(tablerow);
 
             Button button = new Button(context);
-
             button.setLayoutParams(new TableRow.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT,
-                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT,
                     1.0f));
-            //Buttons fyller tilgjengelig plass
             button.setText(courseList.get(i).getName());
             final int index = i;
             button.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +81,6 @@ public class OverviewActivity extends Activity{
 
             tablerow.addView(button);
 
-            //TODO: Legge inn nøkkel logikk her.
             //TODO: Ide: Legg redirect knapp før for-loopen
 
         }
