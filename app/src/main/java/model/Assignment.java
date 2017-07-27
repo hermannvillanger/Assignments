@@ -32,26 +32,26 @@ public class Assignment {
         this.Next_Delivery = Next_Delivery;
     }
     //Setters
-    public void setCourse_Id(Integer course_Id) {
-        Course_Id = course_Id;
+    public void setCourse_Id(Integer Course_Id) {
+        this.Course_Id = Course_Id;
     }
-    public void setAssignment_Id(Integer assignment_Id) {
-        Assignment_Id = assignment_Id;
+    public void setAssignment_Id(Integer Assignment_Id) {
+        this.Assignment_Id = Assignment_Id;
     }
-    public void setDelivery_Type(String delivery_Type) {
-        Delivery_Type = delivery_Type;
+    public void setDelivery_Type(String Delivery_Type) {
+        this.Delivery_Type = Delivery_Type;
     }
-    public void setCompleted(Integer completed) {
-        Completed = completed;
+    public void setCompleted(Integer Completed) {
+        this.Completed = Completed;
     }
-    public void setWeekday(String weekday) {
-        Weekday = weekday;
+    public void setWeekday(String Weekday) {
+        this.Weekday = Weekday;
     }
-    public void setDelivery_Time(String delivery_Time) {
-        Delivery_Time = delivery_Time;
+    public void setDelivery_Time(String Delivery_Time) {
+        this.Delivery_Time = Delivery_Time;
     }
-    public void setNext_Delivery(String next_Delivery) {
-        Next_Delivery = next_Delivery;
+    public void setNext_Delivery(String Next_Delivery) {
+        this.Next_Delivery = Next_Delivery;
     }
 
     //Getters

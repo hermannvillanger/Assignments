@@ -29,9 +29,12 @@ public class AddAssignmentActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_assignment);
-        context = getBaseContext();
+        context = AddAssignmentActivity.this;
         Intent intent = getIntent();
         courseId = intent.getIntExtra("courseId",0);
+
+        databaseHelper = new DatabaseHelper(context);
+        sqLiteDatabase = databaseHelper.getWritableDatabase();
 
         Weekday = findViewById(R.id.weekday);
         DeliveryTime = findViewById(R.id.delivery_time);
@@ -43,7 +46,10 @@ public class AddAssignmentActivity extends Activity {
             @Override
             public void onClick(View view) {
                 addAssignment(view);
+                sqLiteDatabase.close();
+                databaseHelper.close();
                 Intent direct = new Intent(AddAssignmentActivity.this, CourseActivity.class);
+                direct.putExtra("courseId",courseId);
                 startActivity(direct);
             }
         });
@@ -57,9 +63,6 @@ public class AddAssignmentActivity extends Activity {
         String nextDelivery = NextDelivery.getText().toString();
         Assignment assignment = new Assignment(courseId, null, deliveryType, 0, weekday, deliveryTime, nextDelivery);
 
-        databaseHelper = new DatabaseHelper(context);
-        sqLiteDatabase = databaseHelper.getWritableDatabase();
-
         boolean saved = databaseHelper.createAssignment(assignment, sqLiteDatabase);
         if(saved){
             Toast("Assignment saved");
@@ -67,12 +70,10 @@ public class AddAssignmentActivity extends Activity {
         else{
             Toast("Something went wrong");
         }
-
-        databaseHelper.close();
     }
 
     private void Toast(String message){
-        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(context ,message ,Toast.LENGTH_SHORT).show();
     }
 
 }

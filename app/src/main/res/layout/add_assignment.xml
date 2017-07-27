@@ -31,6 +31,18 @@
         app:layout_constraintTop_toBottomOf="@+id/weekday" />
 
     <EditText
+        android:id="@+id/delivery_type"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/deliveryType"
+        android:inputType="text"
+        app:layout_constraintLeft_toLeftOf="@+id/delivery_time"
+        app:layout_constraintTop_toBottomOf="@+id/delivery_time" />
+
+    <EditText
         android:id="@+id/next_delivery"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
@@ -52,18 +64,5 @@
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="-46dp"
         app:layout_constraintLeft_toLeftOf="@+id/next_delivery" />
-
-    <EditText
-        android:id="@+id/delivery_type"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:hint="@string/deliveryType"
-        android:inputType="text"
-        app:layout_constraintLeft_toLeftOf="@+id/delivery_time"
-        app:layout_constraintTop_toBottomOf="@+id/delivery_time" />
-
 
 </android.support.constraint.ConstraintLayout>

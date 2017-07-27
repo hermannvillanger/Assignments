@@ -27,12 +27,11 @@ public class OverviewActivity extends Activity{
     Button addCourse;
     Button toCourse;
     List<Course> courseList;
-    Integer courseId;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.courses);
-        context = getBaseContext();
+        context = OverviewActivity.this;
 
         databaseHelper = new DatabaseHelper(context);
         sqLiteDatabase = databaseHelper.getReadableDatabase();
@@ -43,18 +42,18 @@ public class OverviewActivity extends Activity{
         addCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sqLiteDatabase.close();
+                databaseHelper.close();
                 Intent direct = new Intent(OverviewActivity.this, AddCourseActivity.class);
                 startActivity(direct);
             }
         });
 
-        createCourseButtons(courseList);
-
-        sqLiteDatabase.close();
+        createCourseButtons();
     }
 
-    private void createCourseButtons(final List<Course> courseList) {
-        TableLayout table = (TableLayout) findViewById(R.id.course_table);
+    private void createCourseButtons() {
+        TableLayout table = (TableLayout) findViewById(R.id.courseTable);
 
         for(int i = 0; i < courseList.size(); i++){
             TableRow tablerow = new TableRow(context);

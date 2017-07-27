@@ -27,7 +27,7 @@ public class AddCourseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_course);
-        context = getBaseContext();
+        context = AddCourseActivity.this;
 
         CourseName = findViewById(R.id.course_name);
         CourseCode = findViewById(R.id.course_code);
@@ -50,6 +50,7 @@ public class AddCourseActivity extends Activity {
 
         databaseHelper = new DatabaseHelper(context);
         sqLiteDatabase = databaseHelper.getWritableDatabase();
+
         boolean saved = databaseHelper.createCourse(course, sqLiteDatabase);
         if(saved){
             Toast("Course Saved");
@@ -61,8 +62,7 @@ public class AddCourseActivity extends Activity {
     }
 
     private void Toast(String message){
-        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-        toast.show();
+        Toast.makeText(context ,message ,Toast.LENGTH_SHORT).show();
     }
 
 }
